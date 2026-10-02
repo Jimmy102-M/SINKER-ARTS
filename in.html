@@ -1,0 +1,467 @@
+<!DOCTYPE! html>
+
+<html>
+
+<head>
+<title>WEB BIT</title>
+</head>
+
+<body style="margin: 0; font-family: Arial, sans-serif; background: #07131d; color: #ecf7ff; min-height: 100vh;">
+  <div id="loginGate" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: radial-gradient(circle, #12314a, #07131d 60%);">
+    <div style="width: 420px; background: rgba(8, 18, 28, 0.92); border: 1px solid #00f6ff; border-radius: 16px; padding: 30px; box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);">
+      <h2 style="margin-top: 0; color: #7cffd1; text-align: center;">Log in to start</h2>
+
+      <div id="loginActions">
+        <div style="margin-bottom: 20px;">
+          <label for="phoneInput" style="display: block; margin-bottom: 8px; color: #d8faff;">Phone number</label>
+          <input id="phoneInput" type="tel" placeholder="+1 234 567 890" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #00f6ff; background: #0a1a24; color: #fff; box-sizing: border-box; margin-bottom: 10px;" />
+          <button id="phoneLogin" type="button" style="width: 100%; padding: 12px; background: #00f6ff; color: #05141b; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 16px;">Continue with phone</button>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label for="emailInput" style="display: block; margin-bottom: 8px; color: #d8faff;">Email</label>
+          <input id="emailInput" type="email" placeholder="you@example.com" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #00f6ff; background: #0a1a24; color: #fff; box-sizing: border-box; margin-bottom: 10px;" />
+          <button id="emailLogin" type="button" style="width: 100%; padding: 12px; background: #7cffd1; color: #05141b; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 16px;">Continue with email</button>
+        </div>
+
+        <button id="googleLogin" type="button" style="width: 100%; padding: 12px; background: #ff4d79; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Continue with Google</button>
+        <div id="loginStatus" role="status" style="color: #ffb6c1; margin-top: 12px; line-height: 1.5;"></div>
+      </div>
+
+      <div id="verificationBox" style="display: none; border: 1px solid #7cffd1; border-radius: 12px; padding: 16px; background: rgba(10, 25, 30, 0.8);">
+        <div id="verificationMessage" style="color: #d8faff; margin-bottom: 12px; line-height: 1.5;">A verification code has been sent.</div>
+        <label for="verificationCode" style="display: block; margin-bottom: 8px; color: #d8faff;">Enter verification code</label>
+        <input id="verificationCode" type="text" placeholder="123456" maxlength="6" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #7cffd1; background: #081d26; color: #fff; box-sizing: border-box; margin-bottom: 12px;" />
+        <button id="verifyCodeBtn" type="button" style="width: 100%; padding: 12px; background: #00f6ff; color: #05141b; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">Verify</button>
+        <button id="resendCodeBtn" type="button" style="width: 100%; padding: 10px; background: transparent; color: #7cffd1; border: 1px solid #7cffd1; border-radius: 8px; cursor: pointer;">Resend code</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="appContent" style="display: none; padding: 30px; background: linear-gradient(135deg, #020b12, #0b1d2b 50%, #081419); min-height: 100vh; color: #d8faff; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 22px;">
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 8px; color: #7cffd1; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; padding: 6px 12px; border: 1px solid #00f6ff; border-radius: 999px; background: rgba(0,246,255,0.08);">
+            <span style="font-weight: 700;">&lt;/&gt;</span>
+            <span>AGENT</span>
+          </div>
+          <h1 style="margin: 0; color: #d8faff; font-size: 2.2rem; text-shadow: 0 0 10px rgba(0,246,255,0.6);">WEB BIT Creator</h1>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button id="newWorkspaceBtn" style="padding: 10px 16px; border: 1px solid #00f6ff; background: #061922; color: #9af6ff; border-radius: 8px; cursor: pointer; font-weight: 600;">New Workspace</button>
+          <button id="generateBtn" style="padding: 10px 16px; border: none; background: linear-gradient(135deg, #00f6ff, #7cffd1); color: #04151a; border-radius: 8px; cursor: pointer; font-weight: 700;">Generate Code</button>
+          <button id="downloadBtn" style="padding: 10px 16px; border: 1px solid #7cffd1; background: transparent; color: #7cffd1; border-radius: 8px; cursor: pointer; font-weight: 600;">Download HTML</button>
+        </div>
+      </div>
+
+      <div id="logBoard" style="border: 1px solid #00f6ff; background: rgba(0, 15, 20, 0.9); color: #d8faff; padding: 18px; margin: 10px 0 20px; max-width: 700px; min-height: 120px; box-shadow: 0 0 16px rgba(0, 246, 255, 0.5); border-radius: 10px; font-family: 'Courier New', monospace;">
+        <div style="color: #7cffd1; margin-bottom: 10px;">root@hack-console:~$ boot_sequence</div>
+        <div id="logMessages" style="margin-top: 8px; line-height: 1.8; white-space: pre-wrap; color: #9af6ff;"></div>
+      </div>
+
+      <div id="workspacePanel" style="display: none; margin-bottom: 20px; padding: 18px; border: 1px solid #7cffd1; background: rgba(10, 25, 30, 0.8); border-radius: 12px; max-width: 420px;">
+        <div style="color: #7cffd1; margin-bottom: 12px; font-weight: 700;">[ CREATE NEW PROJECT ]</div>
+        <label for="projectName" style="display: block; margin-bottom: 8px; color: #d8faff;">Project name</label>
+        <input id="projectName" type="text" placeholder="my-new-project" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #7cffd1; background: #081d26; color: #fff; box-sizing: border-box; margin-bottom: 12px;" />
+        <button id="createWorkspaceBtn" style="padding: 10px 18px; border: none; background: #7cffd1; color: #04151a; font-weight: bold; border-radius: 8px; cursor: pointer;">Create workspace</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px;">
+        <div style="background: rgba(10, 25, 30, 0.8); border: 1px solid rgba(0,246,255,0.5); border-radius: 14px; padding: 20px; box-shadow: inset 0 0 20px rgba(0,246,255,0.08);">
+          <h2 style="margin-top: 0; color: #7cffd1;">Design Settings</h2>
+          <form id="builderForm">
+            <div style="margin-bottom: 16px;">
+              <label for="siteTitle" style="display: block; margin-bottom: 8px; color: #d8faff;">Website title</label>
+              <input id="siteTitle" value="My Landing Page" style="width: 100%; padding: 10px; border: 1px solid #00f6ff; background: #061b21; color: #fff; border-radius: 8px; box-sizing: border-box;" />
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label for="heroTitle" style="display: block; margin-bottom: 8px; color: #d8faff;">Hero title</label>
+              <input id="heroTitle" value="Build Faster with Smart Ideas" style="width: 100%; padding: 10px; border: 1px solid #00f6ff; background: #061b21; color: #fff; border-radius: 8px; box-sizing: border-box;" />
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label for="heroText" style="display: block; margin-bottom: 8px; color: #d8faff;">Description</label>
+              <textarea id="heroText" rows="4" style="width: 100%; padding: 10px; border: 1px solid #00f6ff; background: #061b21; color: #fff; border-radius: 8px; box-sizing: border-box; resize: vertical;">Design stunning websites with a clean layout, strong message, and fast startup tools.</textarea>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label for="buttonText" style="display: block; margin-bottom: 8px; color: #d8faff;">Button text</label>
+              <input id="buttonText" value="Start Project" style="width: 100%; padding: 10px; border: 1px solid #00f6ff; background: #061b21; color: #fff; border-radius: 8px; box-sizing: border-box;" />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label for="primaryColor" style="display: block; margin-bottom: 8px; color: #d8faff;">Primary color</label>
+                <input id="primaryColor" type="color" value="#00f6ff" style="width: 100%; height: 42px; border: 1px solid #00f6ff; background: #061b21; border-radius: 8px;" />
+              </div>
+              <div>
+                <label for="bgColor" style="display: block; margin-bottom: 8px; color: #d8faff;">Background color</label>
+                <input id="bgColor" type="color" value="#0b1220" style="width: 100%; height: 42px; border: 1px solid #00f6ff; background: #061b21; border-radius: 8px;" />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="background: rgba(10, 25, 30, 0.8); border: 1px solid rgba(0,246,255,0.5); border-radius: 14px; padding: 18px;">
+            <h2 style="margin-top: 0; color: #7cffd1;">Live Preview</h2>
+            <div id="livePreview" style="min-height: 260px; border-radius: 12px; padding: 0; overflow: hidden; background: #0b1220;"></div>
+          </div>
+
+          <div style="background: rgba(10, 25, 30, 0.8); border: 1px solid rgba(0,246,255,0.5); border-radius: 14px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap;">
+              <h2 style="margin: 0; color: #7cffd1;">Generated HTML</h2>
+              <button id="applyCodeBtn" style="padding: 8px 12px; background: #7cffd1; color: #04151a; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Apply Edit</button>
+            </div>
+            <textarea id="codeOutput" rows="14" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #00f6ff; background: #04151a; color: #9af6ff; overflow: auto; box-sizing: border-box; font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.6; resize: vertical;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginGate = document.getElementById("loginGate");
+    const appContent = document.getElementById("appContent");
+    const logMessages = document.getElementById("logMessages");
+    const workspacePanel = document.getElementById("workspacePanel");
+    const projectNameInput = document.getElementById("projectName");
+    const loginActions = document.getElementById("loginActions");
+    const verificationBox = document.getElementById("verificationBox");
+    const verificationMessage = document.getElementById("verificationMessage");
+    const verificationCodeInput = document.getElementById("verificationCode");
+    const loginStatus = document.getElementById("loginStatus");
+
+    let pendingMethod = "";
+    let pendingChannel = "";
+    let pendingDestination = "";
+    let challengeId = "";
+
+    function addLog(message) {
+      const line = document.createElement("div");
+      line.textContent = message;
+      logMessages.appendChild(line);
+    }
+
+    async function sendVerificationCode(channel, destination) {
+      verificationMessage.style.color = "#d8faff";
+      verificationMessage.textContent = "Sending verification code...";
+      loginStatus.textContent = "";
+      try {
+        const response = await fetch("/api/verification/start", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ channel, to: destination })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Could not send a verification code.");
+
+        pendingChannel = channel;
+        pendingDestination = destination;
+        pendingMethod = (channel === "phone" ? "Phone: " : "Email: ") + destination;
+        challengeId = result.challengeId;
+        verificationCodeInput.value = "";
+        loginActions.style.display = "none";
+        verificationBox.style.display = "block";
+        verificationMessage.textContent = "A verification code was sent to " + result.destination + ". It expires in 10 minutes.";
+      } catch (error) {
+        const message = error.message || "Could not reach the verification server. Start the app with npm start and try again.";
+        if (verificationBox.style.display === "block") {
+          verificationMessage.textContent = message;
+          verificationMessage.style.color = "#ff8ea1";
+        } else {
+          loginStatus.textContent = message;
+        }
+      }
+    }
+
+    async function verifyCode() {
+      if (!challengeId) return;
+      try {
+        const response = await fetch("/api/verification/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ challengeId, code: verificationCodeInput.value.trim() })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Could not verify that code.");
+        startApp(pendingMethod);
+      } catch (error) {
+        verificationMessage.textContent = error.message || "Could not reach the verification server. Try again.";
+        verificationMessage.style.color = "#ff8ea1";
+      }
+    }
+
+    function startApp(method) {
+      loginGate.style.display = "none";
+      appContent.style.display = "block";
+
+      const bootLines = [
+        "[OK] initializing kernel",
+        "[OK] loading security modules",
+        "[OK] validating user token",
+        "[OK] user login: " + method,
+        "[OK] connecting to network",
+        "[OK] preparing cyber interface",
+        "[OK] system ready"
+      ];
+
+      bootLines.forEach((line, index) => {
+        setTimeout(() => addLog(line), index * 350);
+      });
+    }
+
+    const fields = {
+      siteTitle: document.getElementById("siteTitle"),
+      heroTitle: document.getElementById("heroTitle"),
+      heroText: document.getElementById("heroText"),
+      buttonText: document.getElementById("buttonText"),
+      primaryColor: document.getElementById("primaryColor"),
+      bgColor: document.getElementById("bgColor")
+    };
+
+    function buildCode() {
+      const title = fields.siteTitle.value.trim() || "My Landing Page";
+      const heading = fields.heroTitle.value.trim() || "Build Faster with Smart Ideas";
+      const text = fields.heroText.value.trim() || "Design stunning websites with a clean layout, strong message, and fast startup tools.";
+      const button = fields.buttonText.value.trim() || "Start Project";
+      const accent = fields.primaryColor.value || "#00f6ff";
+      const bg = fields.bgColor.value || "#0b1220";
+
+      const code = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${title}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: ${bg};
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    .hero {
+      width: min(1100px, 90vw);
+      min-height: 520px;
+      background: linear-gradient(135deg, ${bg}, #111827);
+      border: 1px solid ${accent};
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,246,255,0.2);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      overflow: hidden;
+    }
+    .content {
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .tag {
+      display: inline-block;
+      color: ${accent};
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.1;
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #dfeaf6;
+      max-width: 540px;
+      margin-bottom: 22px;
+    }
+    button {
+      width: fit-content;
+      border: none;
+      background: ${accent};
+      color: #04151a;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .visual {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid ${accent};
+    }
+    .card {
+      width: 220px;
+      height: 220px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, ${accent}, #0f172a);
+      box-shadow: 0 0 30px rgba(0,246,255,0.35);
+      transform: rotate(12deg);
+      position: relative;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 18px;
+    }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; }
+      .visual { min-height: 220px; border-left: none; border-top: 1px solid ${accent}; }
+      .content { padding: 30px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="content">
+      <div class="tag">Launch Ready</div>
+      <h1>${heading}</h1>
+      <p>${text}</p>
+      <button>${button}</button>
+    </div>
+    <div class="visual">
+      <div class="card"></div>
+    </div>
+  </section>
+</body>
+</html>`;
+
+      return code;
+    }
+
+    function colorizeHtml(code) {
+      return code
+        .replace(/(&lt;\/?[A-Za-z0-9-]+&gt;)/g, '<span style="color:#e06c75;">$1</span>')
+        .replace(/(&lt;[A-Za-z0-9-]+\s)/g, '<span style="color:#e06c75;">$1</span>')
+        .replace(/(\s+[A-Za-z-]+="[^"]*")/g, '<span style="color:#61afef;">$1</span>')
+        .replace(/("[^"]*")/g, '<span style="color:#98c379;">$1</span>')
+        .replace(/(\{[^}]*\}|\[[^\]]*\]|\([^)]*\))/g, '<span style="color:#dcdfe4;">$1</span>');
+    }
+
+    function renderPreview() {
+      const title = fields.siteTitle.value.trim() || "My Landing Page";
+      const heading = fields.heroTitle.value.trim() || "Build Faster with Smart Ideas";
+      const text = fields.heroText.value.trim() || "Design stunning websites with a clean layout, strong message, and fast startup tools.";
+      const button = fields.buttonText.value.trim() || "Start Project";
+      const accent = fields.primaryColor.value || "#00f6ff";
+      const bg = fields.bgColor.value || "#0b1220";
+
+      const preview = document.getElementById("livePreview");
+      preview.innerHTML = `
+        <div style="background: ${bg}; min-height: 260px; border-radius: 14px; border: 1px solid ${accent}; overflow: hidden; padding: 0;">
+          <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; min-height: 260px;">
+            <div style="padding: 28px; display: flex; flex-direction: column; justify-content: center;">
+              <div style="color: ${accent}; font-size: 12px; letter-spacing: 2px; font-weight: bold; margin-bottom: 16px; text-transform: uppercase;">Launch Ready</div>
+              <h3 style="margin: 0 0 12px; font-size: clamp(1.6rem, 2.2vw, 2.8rem); color: #fff;">${heading}</h3>
+              <p style="margin: 0 0 18px; line-height: 1.6; color: #dfeaf6;">${text}</p>
+              <button style="width: fit-content; background: ${accent}; color: #04151a; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer;">${button}</button>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border-left: 1px solid ${accent};">
+              <div style="width: 140px; height: 140px; border-radius: 22px; background: linear-gradient(135deg, ${accent}, #111827); box-shadow: 0 0 24px rgba(0,246,255,0.3); transform: rotate(12deg);"></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const code = buildCode();
+      document.getElementById("codeOutput").value = code;
+      document.title = title;
+    }
+
+    function applyCustomCode() {
+      const userCode = document.getElementById("codeOutput").value;
+      try {
+        const previewFrame = document.createElement("iframe");
+        previewFrame.style.width = "100%";
+        previewFrame.style.height = "260px";
+        previewFrame.style.border = "none";
+        previewFrame.style.borderRadius = "12px";
+        previewFrame.srcdoc = userCode;
+        const preview = document.getElementById("livePreview");
+        preview.innerHTML = "";
+        preview.appendChild(previewFrame);
+        addLog("[OK] custom code applied");
+      } catch (error) {
+        addLog("[ERROR] invalid HTML code");
+      }
+    }
+
+    document.getElementById("phoneLogin").addEventListener("click", function () {
+      const phone = document.getElementById("phoneInput").value.trim();
+      sendVerificationCode("phone", phone);
+    });
+
+    document.getElementById("emailLogin").addEventListener("click", function () {
+      const email = document.getElementById("emailInput").value.trim();
+      const input = document.getElementById("emailInput");
+      if (!input.checkValidity()) {
+        loginStatus.textContent = "Enter a valid email address.";
+        return;
+      }
+      sendVerificationCode("email", email);
+    });
+
+    document.getElementById("googleLogin").addEventListener("click", function () {
+      loginStatus.textContent = "Google sign-in requires OAuth configuration. Use phone or email for now.";
+    });
+
+    document.getElementById("verifyCodeBtn").addEventListener("click", verifyCode);
+    document.getElementById("resendCodeBtn").addEventListener("click", function () {
+      if (pendingChannel && pendingDestination) sendVerificationCode(pendingChannel, pendingDestination);
+    });
+
+    document.getElementById("newWorkspaceBtn").addEventListener("click", function () {
+      workspacePanel.style.display = workspacePanel.style.display === "none" ? "block" : "none";
+    });
+
+    document.getElementById("createWorkspaceBtn").addEventListener("click", function () {
+      const projectName = projectNameInput.value.trim() || "new-project";
+      addLog("[NEW] workspace created: " + projectName);
+      addLog("[NEW] project directory ready");
+      workspacePanel.style.display = "none";
+      projectNameInput.value = "";
+    });
+
+    document.getElementById("generateBtn").addEventListener("click", function () {
+      renderPreview();
+      addLog("[OK] page code generated");
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+      const currentCode = document.getElementById("codeOutput").value || buildCode();
+      const blob = new Blob([currentCode], { type: "text/html" });
+      const link = document.createElement("a");
+      const fileName = (projectNameInput.value.trim() || "webbit-project") + ".html";
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      addLog("[OK] downloaded: " + fileName);
+    });
+
+    document.getElementById("applyCodeBtn").addEventListener("click", applyCustomCode);
+    document.getElementById("codeOutput").addEventListener("input", function () {
+      applyCustomCode();
+    });
+
+    Object.values(fields).forEach(field => field.addEventListener("input", renderPreview));
+    renderPreview();
+  </script>
+</body>
+    
+</html>

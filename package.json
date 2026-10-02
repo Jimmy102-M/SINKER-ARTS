@@ -1,0 +1,13 @@
+{
+  "name": "web-bit-creator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WEB BIT Creator with server-backed email and SMS verification",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env server.js"
+  },
+  "engines": {
+    "node": ">=20.6"
+  }
+}

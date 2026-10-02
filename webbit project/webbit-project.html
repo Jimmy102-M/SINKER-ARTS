@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Landing Page</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0e0a1e;
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    .hero {
+      width: min(1100px, 90vw);
+      min-height: 520px;
+      background: linear-gradient(135deg, #0e0a1e, #111827);
+      border: 1px solid #00f6ff;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,246,255,0.2);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      overflow: hidden;
+    }
+    .content {
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .tag {
+      display: inline-block;
+      color: #00f6ff;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.1;
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #dfeaf6;
+      max-width: 540px;
+      margin-bottom: 22px;
+    }
+    button {
+      width: fit-content;
+      border: none;
+      background: #00f6ff;
+      color: #04151a;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .visual {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid #00f6ff;
+    }
+    .card {
+      width: 220px;
+      height: 220px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #00f6ff, #0f172a);
+      box-shadow: 0 0 30px rgba(0,246,255,0.35);
+      transform: rotate(12deg);
+      position: relative;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 18px;
+    }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; }
+      .visual { min-height: 220px; border-left: none; border-top: 1px solid #00f6ff; }
+      .content { padding: 30px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="content">
+      <div class="tag">Launch Ready</div>
+      <h1>Build Faster with Smart Ideas</h1>
+      <p>Design stunning websites with a clean layout, strong message, and fast startup tools.</p>
+      <button>Start Project</button>
+    </div>
+    <div class="visual">
+      <div class="card"></div>
+    </div>
+  </section>
+</body>
+</html>
