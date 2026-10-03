@@ -4,7 +4,7 @@
   "private": true,
   "description": "WEB BIT Creator with server-backed email and SMS verification",
   "scripts": {
-    "start": "node --env-file=.env server.js",
+    "start": "node server.js",
     "dev": "node --env-file=.env server.js"
   },
   "engines": {

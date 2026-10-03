@@ -4,7 +4,7 @@ const { randomInt, randomUUID, timingSafeEqual } = require("node:crypto");
 const path = require("node:path");
 
 const port = Number(process.env.PORT || 3000);
-const host = process.env.HOST || "127.0.0.1";
+const host = process.env.HOST || (process.env.K_SERVICE ? "0.0.0.0" : "127.0.0.1");
 const challengeLifetimeMs = 10 * 60 * 1000;
 const maxAttempts = 5;
 const challenges = new Map();
